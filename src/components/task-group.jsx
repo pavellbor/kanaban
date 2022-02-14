@@ -1,7 +1,7 @@
 import { TaskGroupType } from '../const';
 import TaskList from './task-list';
 
-const TaskGroup = ({ type, title, tasks }) => {
+const TaskGroup = ({ type, title, tasks, changeTask }) => {
   return (
     <article className={`taskboard__group taskboard__group--${type}`}>
       <h3
@@ -9,9 +9,12 @@ const TaskGroup = ({ type, title, tasks }) => {
       >
         {title}
       </h3>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} changeTask={changeTask} />
       {type === TaskGroupType.BACKET && (
-        <button className="taskboard__button button button--clear" type="button">
+        <button
+          className="taskboard__button button button--clear"
+          type="button"
+        >
           <svg
             width="22"
             height="22"

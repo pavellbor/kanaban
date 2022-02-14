@@ -1,8 +1,31 @@
-const AddTask = () => {
+import { useState } from 'react';
+
+const AddTask = ({ addTask }) => {
+  const [taskBody, setTaskBody] = useState('');
+
+  const onInputChange = (evt) => {
+    setTaskBody(evt.target.value);
+  };
+
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (!taskBody) {
+      return;
+    }
+
+    addTask(taskBody);
+    setTaskBody('');
+  };
+
   return (
     <section className="add-task">
       <h2 className="visually-hidden">Добавить задачу</h2>
-      <form className="add-task__form" aria-label="Форма добавления задачи">
+      <form
+        className="add-task__form"
+        aria-label="Форма добавления задачи"
+        onSubmit={onFormSubmit}
+      >
         <div className="add-task__input-wrapper">
           <label htmlFor="add-task">Новая задача</label>
           <input
@@ -10,6 +33,8 @@ const AddTask = () => {
             name="task-name"
             id="add-task"
             placeholder="Название задачи..."
+            value={taskBody}
+            onChange={onInputChange}
             required
           />
         </div>

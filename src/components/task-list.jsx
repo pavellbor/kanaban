@@ -1,10 +1,10 @@
 import TaskItem from './task-item';
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, changeTask }) => {
   return (
     <div className="taskboard__list">
       {tasks.map((task) => (
-        <TaskItem task={task} key={task.id}/>
+        <TaskItem task={task} changeTask={changeTask} key={task.id}/>
       ))}
     </div>
   );

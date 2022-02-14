@@ -19,11 +19,30 @@ const initialTasks = [
 const AppMain = () => {
   const [tasks, setTasks] = useState(initialTasks);
 
+  const addTask = (body) => {
+    const newTask = {
+      id: Date.now(),
+      body,
+      type: TaskGroupType.BACKLOG,
+    };
+
+    setTasks([...tasks, newTask]);
+  };
+
+  const changeTask = (changedTask) => {
+    const changedTaskIndex = tasks.findIndex((task) => task.id === changedTask.id);
+    setTasks([...tasks.slice(0, changedTaskIndex), changedTask, ...tasks.slice(changedTaskIndex + 1)]);
+  };
+
   return (
     <main className="board-app__main">
       <div className="board-app__inner">
-        <AddTask />
-        <TaskBoard taskGroups={taskGroups} tasks={tasks}/>
+        <AddTask addTask={addTask} />
+        <TaskBoard
+          taskGroups={taskGroups}
+          tasks={tasks}
+          changeTask={changeTask}
+        />
       </div>
     </main>
   );
