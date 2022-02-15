@@ -30,8 +30,38 @@ const AppMain = () => {
   };
 
   const changeTask = (changedTask) => {
-    const changedTaskIndex = tasks.findIndex((task) => task.id === changedTask.id);
-    setTasks([...tasks.slice(0, changedTaskIndex), changedTask, ...tasks.slice(changedTaskIndex + 1)]);
+    const changedTaskIndex = tasks.findIndex(
+      (task) => task.id === changedTask.id
+    );
+
+    setTasks([
+      ...tasks.slice(0, changedTaskIndex),
+      changedTask,
+      ...tasks.slice(changedTaskIndex + 1),
+    ]);
+  };
+
+  const moveTask = (changedTask, nextTask) => {
+    if (!nextTask) {
+      return;
+    }
+
+    const changedTaskIndex = tasks.findIndex(
+      (task) => task.id === changedTask.id
+    );
+
+    const nextTaskIndex = tasks.findIndex((task) => task.id === nextTask.id);
+
+    const updatedTasks = [
+      ...tasks.slice(0, changedTaskIndex),
+      ...tasks.slice(changedTaskIndex + 1),
+    ];
+
+    setTasks([
+      ...updatedTasks.slice(0, nextTaskIndex),
+      changedTask,
+      ...updatedTasks.slice(nextTaskIndex),
+    ]);
   };
 
   return (
@@ -42,6 +72,7 @@ const AppMain = () => {
           taskGroups={taskGroups}
           tasks={tasks}
           changeTask={changeTask}
+          moveTask={moveTask}
         />
       </div>
     </main>

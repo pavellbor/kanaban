@@ -1,15 +1,39 @@
 import { TaskGroupType } from '../const';
 import TaskList from './task-list';
 
-const TaskGroup = ({ type, title, tasks, changeTask }) => {
+const TaskGroup = ({
+  type,
+  title,
+  tasks,
+  draggedTask,
+  changeTask,
+  dragStartTask,
+  dragEnterTaskGroup,
+  dragEnterTask,
+  dragEndTask,
+}) => {
+  const onTaskGroupDragEnter = () => {
+    dragEnterTaskGroup(type);
+  };
+
   return (
-    <article className={`taskboard__group taskboard__group--${type}`}>
+    <article
+      className={`taskboard__group taskboard__group--${type}`}
+      onDragEnter={onTaskGroupDragEnter}
+    >
       <h3
         className={`taskboard__group-heading taskboard__group-heading--${type}`}
       >
         {title}
       </h3>
-      <TaskList tasks={tasks} changeTask={changeTask} />
+      <TaskList
+        tasks={tasks}
+        draggedTask={draggedTask}
+        changeTask={changeTask}
+        dragStartTask={dragStartTask}
+        dragEndTask={dragEndTask}
+        dragEnterTask={dragEnterTask}
+      />
       {type === TaskGroupType.BACKET && (
         <button
           className="taskboard__button button button--clear"
