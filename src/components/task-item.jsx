@@ -3,8 +3,9 @@ import { TaskType } from '../const';
 
 const TaskItem = ({
   task,
+  isDragged,
+  isDraggedCopy,
   changeTask,
-  isDragging,
   dragStartTask,
   dragEndTask,
   dragEnterTask,
@@ -17,7 +18,8 @@ const TaskItem = ({
 
   const typeClass = type ? `task--${type}` : 'task--empty';
   const activeClass = activeMode ? `task--active` : '';
-  const dragClass = isDragging ? `task--dragged` : '';
+  const dragClass = isDraggedCopy ? `task--dragged` : '';
+  const hiddenClass = isDragged ? `hidden-block` : '';
 
   const onButtonClick = (evt) => {
     evt.preventDefault();
@@ -46,7 +48,7 @@ const TaskItem = ({
   };
 
   const onTaskDragEnter = () => {
-    if (isDragging) {
+    if (isDragged || isDraggedCopy || type === TaskType.EMPTY) {
       return;
     }
 
@@ -57,11 +59,10 @@ const TaskItem = ({
 
   return (
     <div
-      className={`taskboard__item task ${typeClass} ${activeClass} ${dragClass}`}
+      className={`taskboard__item task ${typeClass} ${activeClass} ${dragClass} ${hiddenClass}`}
       onDragStart={onTaskDragStart}
       onDragEnter={onTaskDragEnter}
       onDragEnd={onTaskDragEnd}
-      onDrag={() => console.log('hi')}
       draggable={type !== TaskType.EMPTY}
     >
       <div className="task__body">

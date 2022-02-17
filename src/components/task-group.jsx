@@ -6,14 +6,20 @@ const TaskGroup = ({
   title,
   tasks,
   draggedTask,
+  draggedCopyTask,
   changeTask,
   dragStartTask,
   dragEnterTaskGroup,
   dragEnterTask,
   dragEndTask,
+  cleanBasket,
 }) => {
   const onTaskGroupDragEnter = () => {
     dragEnterTaskGroup(type);
+  };
+
+  const onButtonClick = () => {
+    cleanBasket();
   };
 
   return (
@@ -27,8 +33,10 @@ const TaskGroup = ({
         {title}
       </h3>
       <TaskList
+        type={type}
         tasks={tasks}
         draggedTask={draggedTask}
+        draggedCopyTask={draggedCopyTask}
         changeTask={changeTask}
         dragStartTask={dragStartTask}
         dragEndTask={dragEndTask}
@@ -38,6 +46,7 @@ const TaskGroup = ({
         <button
           className="taskboard__button button button--clear"
           type="button"
+          onClick={onButtonClick}
         >
           <svg
             width="22"

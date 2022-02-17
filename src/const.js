@@ -6,6 +6,6 @@ export const TaskGroupType = {
 };
 
 export const TaskType = {
-  ...TaskGroupType,
-  EMPTY: 'empty'
+  EMPTY: 'empty',
+  DRAGGED: 'dragged',
 };
